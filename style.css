@@ -65,11 +65,11 @@ body {
 }
 
 .todo-input {
-  flex: 2;
   min-width: 300px;
 }
 
 .todo-input input {
+  min-width: 350px;
   flex: 1;
   padding: 0.8rem;
   border: 1px solid var(--border-color);
@@ -631,7 +631,8 @@ body {
 .todo-search {
   flex: 1;
   min-width: 200px;
-  display: flex; /* 添加 flex 布局 */
+  padding: 0.8rem;
+  display: flex;
 }
 
 .todo-search input {
