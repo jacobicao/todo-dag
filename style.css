@@ -1,0 +1,774 @@
+:root[data-theme="light"] {
+  --primary-color: #4a6fa5;
+  --secondary-color: #166088;
+  --completed-color: #88b04b;
+  --delete-color: #dd4b39;
+  --card-bg: #ffffff;
+  --bg-color: #f5f7fa;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --border-color: #dddddd;
+  --hover-bg: rgba(74, 111, 165, 0.1);
+  --info-bg: #f9f9f9;
+  --button-bg: #f0f0f0;
+  --button-hover: #e0e0e0;
+}
+
+:root[data-theme="dark"] {
+  --primary-color: #7aa2d6;
+  --secondary-color: #4a8bba;
+  --completed-color: #a8d06b;
+  --delete-color: #ff6b6b;
+  --card-bg: #2d2d2d;
+  --bg-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --border-color: #404040;
+  --hover-bg: rgba(122, 162, 214, 0.1);
+  --info-bg: #252525;
+  --button-bg: #363636;
+  --button-hover: #404040;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.control-bar {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.todo-input {
+  flex: 2;
+  min-width: 300px;
+}
+
+.todo-input input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.todo-input button {
+  padding: 0.8rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.todo-input button:hover {
+  background-color: var(--secondary-color);
+}
+
+.todo-filters {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 1rem;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.filter-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.todo-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.todo-card {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.todo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.todo-card.completed {
+  border-left: 5px solid var(--completed-color);
+}
+
+.todo-card .todo-content {
+  margin-bottom: 1rem;
+  word-break: break-word;
+  color: var(--text-color);
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.todo-card.completed .todo-content {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.todo-card .todo-date {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.todo-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-actions button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.complete-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.complete-btn:hover {
+  background-color: var(--completed-color);
+}
+
+.delete-btn {
+  background-color: #f8f8f8;
+  color: #666;
+}
+
+.delete-btn:hover {
+  background-color: var(--delete-color);
+  color: white;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .control-bar {
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+  
+  .todo-input,
+  .todo-search {
+    flex: 1 1 300px;
+  }
+  
+  .todo-filters {
+    flex: 1 1 100%;
+    justify-content: center;
+    margin: 0;
+  }
+  
+  .theme-toggle {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .control-bar {
+    padding: 0.8rem;
+  }
+  
+  .todo-input,
+  .todo-search {
+    flex: 1 1 100%;
+  }
+  
+  .filter-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* 依赖关系相关样式 */
+.todo-dependencies {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.dependency-title {
+  color: #666;
+  font-weight: bold;
+}
+
+.dependency-list {
+  margin: 0.3rem 0 0.5rem 1rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid var(--primary-color);
+}
+
+.dependency-item {
+  margin-bottom: 0.2rem;
+  list-style-type: none;
+}
+
+.dependency-item.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.secondary-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.8rem;
+}
+
+.dependency-btn,
+.estimate-btn {
+  padding: 0.4rem 0.8rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dependency-btn:hover,
+.estimate-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* 依赖选择模式样式 */
+.dependency-selection-notification {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--primary-color);
+  color: white;
+  text-align: center;
+  padding: 0.8rem;
+  z-index: 1000;
+}
+
+.selectable-dependency {
+  cursor: pointer;
+  border: 2px dashed var(--primary-color);
+  transform: scale(1.02);
+}
+
+.selectable-dependency:hover {
+  background-color: rgba(74, 111, 165, 0.1);
+}
+
+/* 预计完成时间样式 */
+.todo-estimated-date {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+/* 估计时间对话框 */
+.estimate-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  width: 300px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.estimate-dialog h3 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.estimate-date-input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: var(--info-bg);
+  color: var(--text-color);
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dialog-buttons button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.dialog-buttons button:first-child {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.dialog-buttons button:nth-child(2) {
+  background-color: #f0f0f0;
+}
+
+.dialog-buttons button:last-child {
+  background-color: #f8f8f8;
+}
+
+/* 任务路径可视化 */
+.task-path-visualization {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.task-path-visualization h3 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.task-path-content {
+  padding: 0.5rem;
+}
+
+.task-path-item {
+  margin-bottom: 0.8rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+}
+
+.task-path-item:hover {
+  background-color: var(--hover-bg);
+}
+
+.task-path-content.completed {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.task-path-dependencies {
+  margin-top: 0.5rem;
+  margin-left: 1rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #ddd;
+}
+
+.task-path-estimate {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #666;
+  padding: 0.2rem 0.5rem;
+  border-radius: 3px;
+  background-color: var(--info-bg);
+}
+
+.task-path-estimate.overdue {
+  color: var(--delete-color);
+}
+
+.task-path-estimate.due-today {
+  color: orange;
+}
+
+/* 空状态提示 */
+.empty-message {
+  text-align: center;
+  padding: 2rem;
+  color: #888;
+  font-style: italic;
+}
+
+/* 移除依赖按钮样式 */
+.remove-dependency-btn {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  padding: 0 0.3rem;
+  transition: color 0.2s;
+}
+
+.remove-dependency-btn:hover {
+  color: var(--delete-color);
+}
+
+.dependency-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dependency-item-content {
+  flex: 1;
+}
+
+/* 预估耗时对话框 */
+.hours-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  width: 300px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.hours-dialog h3 {
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.hours-input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: var(--info-bg);
+  color: var(--text-color);
+}
+
+/* 预估耗时显示 */
+.todo-estimated-hours {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+/* 计算的完成时间显示 */
+.todo-calculated-time {
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+}
+
+.todo-calculated-time.normal {
+  color: #666;
+  background-color: #f8f8f8;
+}
+
+.todo-calculated-time.warning {
+  color: #856404;
+  background-color: #fff3cd;
+}
+
+.todo-calculated-time.delayed {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+.delay-warning-icon {
+  font-weight: bold;
+}
+
+.delay-warning-text {
+  font-weight: bold;
+  margin-left: 0.2rem;
+}
+
+/* 设置预估耗时按钮 */
+.hours-btn {
+  padding: 0.4rem 0.8rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.hours-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* 调整次要操作按钮布局 */
+.secondary-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.secondary-actions button {
+  flex: 1;
+  min-width: 120px;
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.secondary-actions button:hover {
+  background-color: var(--button-hover);
+  transform: translateY(-1px);
+}
+
+.task-path-hours {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.task-path-calculated {
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
+.task-path-calculated.normal {
+  color: #666;
+}
+
+.task-path-calculated.warning {
+  color: #856404;
+  background-color: #fff3cd;
+}
+
+.task-path-calculated.delayed {
+  color: #721c24;
+  background-color: #f8d7da;
+}
+
+/* 修改截止时间对话框样式 */
+.datetime-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.estimate-date-input,
+.estimate-time-input {
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.estimate-date-input {
+  flex: 2;
+}
+
+.estimate-time-input {
+  flex: 1;
+}
+
+/* 搜索框样式 */
+.todo-search {
+  flex: 1;
+  min-width: 200px;
+  display: flex; /* 添加 flex 布局 */
+}
+
+.todo-search input {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px 0 0 4px;
+  font-size: 1rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.todo-search input::placeholder {
+  color: var(--text-secondary);
+}
+
+.todo-search button {
+  padding: 0.8rem 1.2rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.todo-search button:hover {
+  background-color: #e0e0e0;
+}
+
+/* 高亮任务样式 */
+.todo-card.highlighted {
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 0 15px rgba(var(--primary-color-rgb), 0.3);
+  transform: translateY(-5px);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb), 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(var(--primary-color-rgb), 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--primary-color-rgb), 0);
+  }
+}
+
+/* 任务路径项鼠标样式 */
+.task-path-item {
+  cursor: pointer;
+}
+
+.task-path-item:hover .task-path-content {
+  text-decoration: underline;
+}
+
+/* 任务信息容器样式 */
+.todo-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 0.5rem 0 1rem 0;
+  padding: 0.5rem;
+  background-color: var(--info-bg);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.todo-info-container > div {
+  margin-bottom: 0.2rem;
+}
+
+.todo-info-container > div:last-child {
+  margin-bottom: 0;
+}
+
+/* 修改计算时间容器样式 */
+.todo-calculated-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.todo-calculated-time {
+  color: #666;
+}
+
+.delay-warning {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  margin-left: 0;
+}
+
+.delay-warning.warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.delay-warning.delayed {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* 前置任务列表项样式 */
+.dependency-item-content {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.dependency-item-content:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* 头部样式 */
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  margin-left: auto;
+}
+
+.theme-toggle:hover {
+  background-color: var(--hover-bg);
+}
+
+[data-theme="light"] .theme-icon.dark,
+[data-theme="dark"] .theme-icon.light {
+  display: none;
+}

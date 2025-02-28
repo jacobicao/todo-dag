@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>待办事项列表</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="control-bar">
+        <div class="todo-input">
+          <input type="text" id="new-todo" placeholder="添加新的待办事项..." />
+          <button id="add-todo">添加</button>
+        </div>
+        
+        <div class="todo-filters">
+          <button class="filter-btn" data-filter="all">全部</button>
+          <button class="filter-btn active" data-filter="active">未完成</button>
+          <button class="filter-btn" data-filter="completed">已完成</button>
+        </div>
+        
+        <div class="todo-search">
+          <input type="text" id="search-todo" placeholder="搜索..." />
+          <button id="clear-search">清除</button>
+        </div>
+        
+        <button id="theme-toggle" class="theme-toggle">
+          <span class="theme-icon light">🌞</span>
+          <span class="theme-icon dark">🌙</span>
+        </button>
+      </div>
+
+      <div class="todo-container" id="todo-list">
+        <!-- 待办事项卡片将在这里动态生成 -->
+      </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
