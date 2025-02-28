@@ -154,7 +154,16 @@ class TodoApp {
   }
 
   deleteTodo(todoId) {
-    this.todos = this.todos.filter((todo) => todo.id !== todoId);
+    // 删除任务
+    this.todos = this.todos.filter(todo => todo.id !== todoId);
+    
+    // 清理其他任务中对该任务的依赖
+    this.todos.forEach(todo => {
+      if (todo.dependencies.includes(todoId)) {
+        todo.removeDependency(todoId);
+      }
+    });
+    
     this.saveTodos();
     this.renderTodos();
   }

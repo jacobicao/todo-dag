@@ -65,18 +65,22 @@ body {
 }
 
 .todo-input {
-  min-width: 300px;
+  display: flex;
 }
 
 .todo-input input {
   min-width: 350px;
-  flex: 1;
+  flex: 2;
   padding: 0.8rem;
   border: 1px solid var(--border-color);
   border-radius: 4px 0 0 4px;
   font-size: 1rem;
   background-color: var(--bg-color);
   color: var(--text-color);
+}
+
+.todo-input input::placeholder {
+  color: var(--text-secondary);
 }
 
 .todo-input button {
@@ -510,8 +514,6 @@ body {
 /* 计算的完成时间显示 */
 .todo-calculated-time {
   font-size: 0.8rem;
-  margin-bottom: 0.5rem;
-  padding: 0.3rem 0.5rem;
   border-radius: 4px;
 }
 
@@ -564,11 +566,10 @@ body {
 
 .secondary-actions button {
   flex: 1;
-  min-width: 120px;
   background-color: var(--button-bg);
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  padding: 0.6rem 1rem;
+  padding: 0.6rem 0.1rem;
   border-radius: 4px;
   transition: all 0.2s;
 }
@@ -630,8 +631,6 @@ body {
 /* 搜索框样式 */
 .todo-search {
   flex: 1;
-  min-width: 200px;
-  padding: 0.8rem;
   display: flex;
 }
 
@@ -717,12 +716,12 @@ body {
 /* 修改计算时间容器样式 */
 .todo-calculated-container {
   display: flex;
-  flex-direction: column;
   gap: 0.2rem;
 }
 
 .todo-calculated-time {
   color: #666;
+  align-self: center;
 }
 
 .delay-warning {

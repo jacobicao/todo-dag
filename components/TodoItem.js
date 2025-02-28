@@ -108,12 +108,12 @@ export default class TodoItem {
 
     const completeBtn = document.createElement("button");
     completeBtn.className = "complete-btn";
-    completeBtn.textContent = this.completed ? "取消完成" : "完成";
+    completeBtn.textContent = this.completed ? "↩" : "✅";
     completeBtn.addEventListener("click", () => this.toggleComplete());
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
-    deleteBtn.textContent = "删除";
+    deleteBtn.textContent = "❌";
     deleteBtn.addEventListener("click", () => this.delete());
 
     const dependencyBtn = document.createElement("button");
@@ -190,13 +190,18 @@ export default class TodoItem {
   }
 
   updateDependencyList(todoList, element) {
-    const dependencyListElement = element.querySelector(".dependency-list");
+    const dependencyListElement = element.querySelector('.dependency-list');
     if (!dependencyListElement) return;
-
-    dependencyListElement.innerHTML = "";
-
-    this.dependencies.forEach((depId) => {
-      const dependency = todoList.find((todo) => todo.id === depId);
+    
+    dependencyListElement.innerHTML = '';
+    
+    // 过滤掉不存在的依赖
+    // this.dependencies = this.dependencies.filter(depId => 
+    //   todoList.some(todo => todo.id === depId)
+    // );
+    
+    this.dependencies.forEach(depId => {
+      const dependency = todoList.find(todo => todo.id === depId);
       if (dependency) {
         const li = document.createElement("li");
         li.className = `dependency-item ${dependency.completed ? "completed" : ""}`;
@@ -256,9 +261,10 @@ export default class TodoItem {
   canComplete(todoList) {
     if (this.dependencies.length === 0) return true;
 
-    return this.dependencies.every((depId) => {
-      const dependency = todoList.find((todo) => todo.id === depId);
-      return dependency && dependency.completed;
+    return this.dependencies.every(depId => {
+      const dependency = todoList.find(todo => todo.id === depId);
+      // 如果依赖任务不存在或已完成，则视为可以完成
+      return !dependency || dependency.completed;
     });
   }
 
